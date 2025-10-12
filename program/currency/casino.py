@@ -66,7 +66,7 @@ class Casino(commands.Cog):
         icons = ["🍒", "🍋", "🍊", "🍇", "7️⃣"]
 
         # 🎯 当たりやすくする（5%の確率で揃う）
-        if random.random() < 0.05:
+        if random.random() < 0.06:
             symbol = random.choice(icons)
             result = [symbol, symbol, symbol]
             win = True
@@ -75,7 +75,7 @@ class Casino(commands.Cog):
             win = result[0] == result[1] == result[2]
 
         if win:
-            payout = bet * 20
+            payout = bet * 30
             await self.add_coins(interaction.user.id, payout)
             await interaction.response.send_message(f"🎰 {' '.join(result)}\n✨大当たり！ {payout} コインを獲得！✨")
         else:
