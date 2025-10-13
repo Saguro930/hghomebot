@@ -51,13 +51,14 @@ class Casino(commands.Cog):
         else:
             await interaction.response.send_message(f"💔 結果: 裏。 {bet} コインを失いました。")
 
-    # 🔹 /slot （当たり確率アップ版）
-    @app_commands.command(name="slot", description="スロットで遊ぶ（当たりやすくなっています）")
+    # 🔹 /slot（倍率指定版）
+    @app_commands.command(name="slot", description="スロットで遊ぶ（7=35倍、🍒=30倍、他=25倍）")
     @app_commands.describe(bet="賭けるコインの量")
     async def slot(self, interaction: discord.Interaction, bet: int):
         if bet <= 0:
             await interaction.response.send_message("❌ 1以上の値を指定してください。", ephemeral=True)
             return
+
         can_play = await self.remove_coins(interaction.user.id, bet)
         if not can_play:
             await interaction.response.send_message("❌ コインが不足しています。", ephemeral=True)
@@ -65,7 +66,7 @@ class Casino(commands.Cog):
 
         icons = ["🍒", "🍋", "🍊", "🍇", "7️⃣"]
 
-        # 🎯 当たりやすくする（5%の確率で揃う）
+        # 🎯 当たりやすくする（6%の確率で揃う）
         if random.random() < 0.06:
             symbol = random.choice(icons)
             result = [symbol, symbol, symbol]
@@ -75,11 +76,24 @@ class Casino(commands.Cog):
             win = result[0] == result[1] == result[2]
 
         if win:
-            payout = bet * 30
+            symbol = result[0]
+            # 🔸倍率設定
+            if symbol == "7️⃣":
+                payout = bet * 35
+            elif symbol == "🍒":
+                payout = bet * 30
+            else:
+                payout = bet * 25
+
             await self.add_coins(interaction.user.id, payout)
-            await interaction.response.send_message(f"🎰 {' '.join(result)}\n✨大当たり！ {payout} コインを獲得！✨")
+            await interaction.response.send_message(
+                f"🎰 {' '.join(result)}\n✨大当たり！{symbol} 揃い！ {payout} コインを獲得！✨"
+            )
         else:
-            await interaction.response.send_message(f"🎰 {' '.join(result)}\n残念、{bet} コインを失いました。")
+            await interaction.response.send_message(
+                f"🎰 {' '.join(result)}\n残念、{bet} コインを失いました。"
+            )
+
 
 
     # 🔹 /dice
