@@ -40,7 +40,6 @@ async def setup(bot, db):
     from program.help import Help
     from program.currency.trade import Trade
     from program.currency.steal import Steal
-    from program.game._2048 import Game2048
 
     # 🔹 Cog の追加（dbが必要なものは db も渡す）
     await bot.add_cog(Admin(bot))
@@ -56,7 +55,6 @@ async def setup(bot, db):
     await bot.add_cog(Help(bot))
     await bot.add_cog(Trade(bot, db))
     await bot.add_cog(Steal(bot, db))
-    await bot.add_cog(Game2048(bot))
 
 
 # 🔹 keep_alive がある場合は呼び出し（Renderで常時稼働用）
