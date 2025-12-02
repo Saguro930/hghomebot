@@ -34,9 +34,7 @@ async def setup(bot, db):
     from program.currency.bonus import Bonus  # ← 追加
     from program.top import Top
     from program.profile import Profile
-    from program.search.search import Search
     from program.ticket import Ticket
-    from program.search.youtube import Youtube
     from program.help import Help
     from program.currency.trade import Trade
     from program.currency.steal import Steal
@@ -49,9 +47,7 @@ async def setup(bot, db):
     await bot.add_cog(Bonus(bot, db))  # ← ここで登録
     await bot.add_cog(Top(bot, db))
     await bot.add_cog(Profile(bot, db))
-    await bot.add_cog(Search(bot))
     await bot.add_cog(Ticket(bot))
-    await bot.add_cog(Youtube(bot))
     await bot.add_cog(Help(bot))
     await bot.add_cog(Trade(bot, db))
     await bot.add_cog(Steal(bot, db))
