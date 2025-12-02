@@ -123,7 +123,7 @@ class Steal(commands.Cog):
                 "work_locked_until": work_locked_until.isoformat()
             })
 
-            msg = f"🚨 {interaction.user.mention} は盗みに失敗！警備に捕まり **{fine} コイン** の罰金！\n" \
+            msg = f"🚨 {interaction.user.mention} は盗みに失敗！お疲れぇ！警察に捕まり **{fine} コイン** の罰金！\n" \
                   f"⏳ 1日間 `/work` が使用できません。"
             if leveled_up:
                 msg += f"\n📈 でも経験で学び、窃盗レベルが **Lv.{steal_level}** に上がった！"
